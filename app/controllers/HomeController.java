@@ -20,4 +20,8 @@ public class HomeController extends Controller {
         return ok(index.render("Your new application is ready."));
     }
 
+    public Result welcome(String name, String lastName) {
+        return ok("Welcome, " + name + " " + lastName + "!");
+    }
+
 }
