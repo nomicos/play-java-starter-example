@@ -2,12 +2,17 @@ package controllers;
 
 import play.mvc.Controller;
 import play.mvc.Result;
+import models.Book;
+import views.html.books.*;
+
+import java.util.Set;
 
 public class BooksController extends Controller {
 
     // Show all books.
     public Result index() {
-        return TODO;
+        Set<Book> books = Book.allBooks();
+        return ok(index.render(books));
     }
 
     // Show book details.
