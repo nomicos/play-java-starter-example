@@ -14,8 +14,9 @@
 
         @* The code below will create a form similar to this: *@
         @* <form action="/books/create" method="POST">...</form> *@
+        @* Info on CSRF: https://stackoverflow.com/a/45440902 *@
 
-        @helper.form(action = routes.BooksController.save()) {
+        @helper.form(action = helper.CSRF(routes.BooksController.save())) {
             @helper.inputText(bookForm("id"))
             @helper.inputText(bookForm("title"))
             @helper.inputText(bookForm("price"))
