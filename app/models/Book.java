@@ -33,7 +33,7 @@ public class Book {
 
     public static Book findById(Integer id) {
         for (Book book : books) {
-            if (book.id == id) {
+            if (id.equals(book.id)) {
                 return book;
             }
         }
