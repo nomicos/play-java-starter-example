@@ -32,8 +32,7 @@ public class BooksController extends Controller {
     }
 
     public Result save() {
-        Form<Book> bookForm = formFactory.form(Book.class).bindFromRequest();
-        Book book = bookForm.get();
+        Book book = formFactory.form(Book.class).bindFromRequest().get();
         Book.add(book);
         return redirect(routes.BooksController.index());
     }
@@ -48,8 +47,7 @@ public class BooksController extends Controller {
     }
 
     public Result update() {
-        Form<Book> bookForm = formFactory.form(Book.class).bindFromRequest();
-        Book book = bookForm.get();
+        Book book = formFactory.form(Book.class).bindFromRequest().get();
 
         Book oldBook = Book.findById(book.id);
         if (oldBook == null) {
