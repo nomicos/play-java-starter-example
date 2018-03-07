@@ -8,6 +8,7 @@ import models.Book;
 import views.html.books.*;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
 
 public class BooksController extends Controller {
@@ -17,13 +18,13 @@ public class BooksController extends Controller {
 
     // Show all books.
     public Result index() {
-        Set<Book> books = Book.allBooks();
+        List<Book> books = Book.find.all();
         return ok(index.render(books));
     }
 
     // Show book details.
     public Result show(Integer id) {
-        Book book = Book.findById(id);
+        Book book = Book.find.byId(id);
         if (book == null) {
             return notFound("Book not found");
         }
@@ -38,12 +39,12 @@ public class BooksController extends Controller {
 
     public Result save() {
         Book book = formFactory.form(Book.class).bindFromRequest().get();
-        Book.add(book);
+        book.save();
         return redirect(routes.BooksController.index());
     }
 
     public Result edit(Integer id) {
-        Book book = Book.findById(id);
+        Book book = Book.find.byId(id);
         if (book == null) {
             return notFound("Book not found");
         }
@@ -54,7 +55,7 @@ public class BooksController extends Controller {
     public Result update() {
         Book book = formFactory.form(Book.class).bindFromRequest().get();
 
-        Book oldBook = Book.findById(book.id);
+        Book oldBook = Book.find.byId(book.id);
         if (oldBook == null) {
             return notFound("Book not found");
         }
@@ -62,17 +63,18 @@ public class BooksController extends Controller {
         oldBook.title = book.title;
         oldBook.author = book.author;
         oldBook.price = book.price;
+        oldBook.save();
 
         return redirect(routes.BooksController.index());
     }
 
     public Result destroy(Integer id) {
-        Book book = Book.findById(id);
+        Book book = Book.find.byId(id);
         if (book == null) {
             return notFound("Book not found");
         }
 
-        Book.remove(book);
+        book.delete();
         return redirect(routes.BooksController.index());
     }
 
