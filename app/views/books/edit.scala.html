@@ -12,7 +12,7 @@
     @* Info on CSRF: https://stackoverflow.com/a/45440902 *@
 
     @helper.form(action = helper.CSRF(routes.BooksController.update())) {
-        @helper.inputText(bookForm("id"))
+        @helper.inputText(bookForm("id"), 'readonly -> "readonly")
         @helper.inputText(bookForm("title"))
         @helper.inputText(bookForm("price"))
         @helper.inputText(bookForm("author"))
